@@ -1,11 +1,28 @@
 // Create a web server
 
-const http = require('http');
+const express = require('express');
+const app = express();
+const port = 3000;
 
-const server = http.createServer((req, res) => {
-  console.log('Request received');
+// Middleware
+app.use(express.json());
+
+const comments = [
+    {message: 'Hello'},
+    {message: 'Hi'},
+    {message: 'Bye'}
+];
+
+app.get('/comments', (req, res) => {
+    res.send(comments);
 });
 
-server.listen(3000, () => {
-  console.log('Server listening on port 3000');
+app.post('/comments', (req, res) => {
+    const comment = req.body;
+    comments.push(comment);
+    res.send(comment);
+});
+
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
 });
