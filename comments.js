@@ -1,28 +1,23 @@
 // Create a web server
+// Create a web server that listens for incoming requests on port 3000 and responds with the message "Hello, World!".
+// Use the createServer method from the http module to create a new web server.
+// Use the listen method to bind the server to port 3000.
+// Use the writeHead method to set the Content-Type header to text/plain.
+// Use the end method to send the response body "Hello, World!".
 
-const express = require('express');
-const app = express();
-const port = 3000;
+// Import the http module
+const http = require('http');
 
-// Middleware
-app.use(express.json());
+// Create a web server
+const server = http.createServer((req, res) => {
+  // Set the Content-Type header
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
 
-const comments = [
-    {message: 'Hello'},
-    {message: 'Hi'},
-    {message: 'Bye'}
-];
-
-app.get('/comments', (req, res) => {
-    res.send(comments);
+  // Send the response body
+  res.end('Hello, World!');
 });
 
-app.post('/comments', (req, res) => {
-    const comment = req.body;
-    comments.push(comment);
-    res.send(comment);
-});
-
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+// Bind the server to port 3000
+server.listen(3000, () => {
+  console.log('Server is running on http://localhost:3000');
 });
